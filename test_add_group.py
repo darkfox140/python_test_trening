@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from group import Group
 import unittest
+from group import Group
 
 
 class TestAddGroup(unittest.TestCase):
@@ -53,7 +54,6 @@ class TestAddGroup(unittest.TestCase):
         browser.find_element(By.LINK_TEXT, "groups").click()
 
     def login(self, browser, username, password):
-        browser.find_element(By.NAME, "user").click()
         browser.find_element(By.NAME, "user").clear()
         browser.find_element(By.NAME, "user").send_keys(username)
         browser.find_element(By.NAME, "pass").clear()
