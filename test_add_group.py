@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -35,21 +36,21 @@ class TestAddGroup(unittest.TestCase):
         browser.find_element_by_name("submit").click()
         browser.find_element_by_link_text("group page").click()
         browser.find_element_by_link_text("Logout").click()
-    
+
     def is_element_present(self, how, what):
         try:
             self.browser.find_element(by=how, value=what)
         except NoSuchElementException as e:
             return False
         return True
-    
+
     def is_alert_present(self):
         try:
             self.browser.switch_to_alert()
         except NoAlertPresentException as e:
             return False
         return True
-    
+
     def tearDown(self):
         self.browser.quit()
 
