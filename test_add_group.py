@@ -11,9 +11,9 @@ class TestAddGroup(unittest.TestCase):
     def test_add_group(self):
         browser = self.browser
         self.open_home_page(browser)
-        self.login(browser)
+        self.login(browser, username="admin", password="secret")
         self.open_groups_page(browser)
-        self.create_group(browser)
+        self.create_group(browser, name="qwerty", header="qazxsw", footer="asdf")
         self.return_to_groups_page(browser)
         self.logout(browser)
 
@@ -23,31 +23,31 @@ class TestAddGroup(unittest.TestCase):
     def return_to_groups_page(self, browser):
         browser.find_element(By.LINK_TEXT, "group page").click()
 
-    def create_group(self, browser):
+    def create_group(self, browser, name, header, footer):
         # init group creation
         browser.find_element(By.NAME, "new").click()
         # fill group form
         browser.find_element(By.NAME, "group_name").click()
         browser.find_element(By.NAME, "group_name").clear()
-        browser.find_element(By.NAME, "group_name").send_keys("qwerty")
+        browser.find_element(By.NAME, "group_name").send_keys(name)
         browser.find_element(By.NAME, "group_header").click()
         browser.find_element(By.NAME, "group_header").clear()
-        browser.find_element(By.NAME, "group_header").send_keys("qazxsw")
+        browser.find_element(By.NAME, "group_header").send_keys(header)
         browser.find_element(By.NAME, "group_footer").click()
         browser.find_element(By.NAME, "group_footer").clear()
-        browser.find_element(By.NAME, "group_footer").send_keys("asdf")
+        browser.find_element(By.NAME, "group_footer").send_keys(footer)
         # submit group creation
         browser.find_element(By.NAME, "submit").click()
 
     def open_groups_page(self, browser):
         browser.find_element(By.LINK_TEXT, "groups").click()
 
-    def login(self, browser):
+    def login(self, browser, username, password):
         browser.find_element(By.NAME, "user").click()
         browser.find_element(By.NAME, "user").clear()
-        browser.find_element(By.NAME, "user").send_keys("admin")
+        browser.find_element(By.NAME, "user").send_keys(username)
         browser.find_element(By.NAME, "pass").clear()
-        browser.find_element(By.NAME, "pass").send_keys("secret")
+        browser.find_element(By.NAME, "pass").send_keys(password)
         browser.find_element(By.XPATH, "//input[@value='Login']").click()
 
     def open_home_page(self, browser):
