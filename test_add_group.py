@@ -17,6 +17,15 @@ class TestAddGroup(unittest.TestCase):
         self.return_to_groups_page(browser)
         self.logout(browser)
 
+    def test_add_empty_group(self):
+        browser = self.browser
+        self.open_home_page(browser)
+        self.login(browser, username="admin", password="secret")
+        self.open_groups_page(browser)
+        self.create_group(browser, name="", header="", footer="")
+        self.return_to_groups_page(browser)
+        self.logout(browser)
+
     def logout(self, browser):
         browser.find_element(By.LINK_TEXT, "Logout").click()
 
