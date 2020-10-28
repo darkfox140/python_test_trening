@@ -19,7 +19,7 @@ class TestAddNewContact(unittest.TestCase):
                                 fax="No", email1="testemail1@facegmail.com", email2="testemail2@facegmail.com",
                                 email3="testemail3@facegmail.com", homepage="testhomepage.ru", bday="14",
                                 bmonth="August", byear="1987", aday="24", amonth="October", ayear="2014",
-                                address2="Moscow, Lenina 2", phone2="Phone2test", notest="Test information")
+                                address2="Moscow, Lenina 2", phone2="Phone2test", notes="Test information")
         self.return_home(browser)
         self.logout(browser)
 
@@ -31,7 +31,7 @@ class TestAddNewContact(unittest.TestCase):
 
     def create_new_contact(self, browser, first_name, middle_name, last_name, nick_name, tittle, company, address1,
                            home_phone, mobile_phone, work_phone, fax, email1, email2, email3, homepage, bday, bmonth,
-                           byear, aday, amonth, ayear, address2, phone2, notest):
+                           byear, aday, amonth, ayear, address2, phone2, notes):
         # init new contact creation
         browser.find_element_by_link_text("add new").click()
         # fill new contact form
@@ -87,7 +87,7 @@ class TestAddNewContact(unittest.TestCase):
         browser.find_element_by_name("phone2").clear()
         browser.find_element_by_name("phone2").send_keys(phone2)
         browser.find_element_by_name("notes").clear()
-        browser.find_element_by_name("notes").send_keys(notest)
+        browser.find_element_by_name("notes").send_keys(notes)
         browser.find_element_by_xpath("(//input[@name='submit'])[2]").click()
 
     def login(self, browser, user_name, password):
