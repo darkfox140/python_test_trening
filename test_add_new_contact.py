@@ -15,8 +15,9 @@ class TestAddNewContact(unittest.TestCase):
         browser = self.browser
         self.open_home_page(browser)
         self.login(browser, username="admin", password="secret")
-
+        # init contact creation
         browser.find_element_by_link_text("add new").click()
+        # fill contact form
         browser.find_element_by_name("firstname").clear()
         browser.find_element_by_name("firstname").send_keys("Andrey")
         browser.find_element_by_name("middlename").click()
@@ -75,7 +76,7 @@ class TestAddNewContact(unittest.TestCase):
         browser.find_element_by_name("notes").clear()
         browser.find_element_by_name("notes").send_keys(u"Сдесь могла быть ваша рекламма")
         browser.find_element_by_xpath("(//input[@name='submit'])[2]").click()
-
+        # return to home
         browser.find_element_by_link_text("home").click()
         # logout
         browser.find_element_by_link_text("Logout").click()
