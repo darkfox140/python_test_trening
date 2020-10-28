@@ -10,11 +10,21 @@ class TestAddNewContact(unittest.TestCase):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(30)
 
-
     def test_add_new_contact(self):
         browser = self.browser
         self.open_home_page(browser)
         self.login(browser, username="admin", password="secret")
+        self.create_group(browser)
+        self.return_to_home(browser)
+        self.logout(browser)
+
+    def logout(self, browser):
+        browser.find_element_by_link_text("Logout").click()
+
+    def return_to_home(self, browser):
+        browser.find_element_by_link_text("home").click()
+
+    def create_group(self, browser):
         # init contact creation
         browser.find_element_by_link_text("add new").click()
         # fill contact form
@@ -76,10 +86,6 @@ class TestAddNewContact(unittest.TestCase):
         browser.find_element_by_name("notes").clear()
         browser.find_element_by_name("notes").send_keys(u"Сдесь могла быть ваша рекламма")
         browser.find_element_by_xpath("(//input[@name='submit'])[2]").click()
-        # return to home
-        browser.find_element_by_link_text("home").click()
-        # logout
-        browser.find_element_by_link_text("Logout").click()
 
     def login(self, browser, username, password):
         browser.find_element_by_name("user").send_keys(username)
