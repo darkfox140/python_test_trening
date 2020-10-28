@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import NoAlertPresentException
 import unittest
 
 
@@ -17,9 +14,9 @@ class TestAddNewContact(unittest.TestCase):
     def test_add_new_contact(self):
         browser = self.browser
         self.open_home_page(browser)
-        self.login(browser)
+        self.login(browser, username="admin", password="secret")
+
         browser.find_element_by_link_text("add new").click()
-        browser.find_element_by_name("firstname").click()
         browser.find_element_by_name("firstname").clear()
         browser.find_element_by_name("firstname").send_keys("Andrey")
         browser.find_element_by_name("middlename").click()
@@ -46,9 +43,9 @@ class TestAddNewContact(unittest.TestCase):
         browser.find_element_by_name("work").clear()
         browser.find_element_by_name("work").send_keys("8499*******")
         browser.find_element_by_name("fax").clear()
-        browser.find_element_by_name("fax").send_keys(u"нету")
+        browser.find_element_by_name("fax").send_keys("no")
         browser.find_element_by_name("email").clear()
-        browser.find_element_by_name("email").send_keys("godzilla@facegmail.com")
+        browser.find_element_by_name("email").send_keys("testemail1@facegmail.com")
         browser.find_element_by_name("email2").clear()
         browser.find_element_by_name("email2").send_keys("testemail2@facegmail.com")
         browser.find_element_by_name("email3").clear()
@@ -62,10 +59,6 @@ class TestAddNewContact(unittest.TestCase):
         browser.find_element_by_name("byear").click()
         browser.find_element_by_name("byear").clear()
         browser.find_element_by_name("byear").send_keys("1987")
-        browser.find_element_by_xpath("//div[@id='content']/form/label[20]").click()
-        browser.find_element_by_xpath("//div[@id='content']/form/label[20]").click()
-        # ERROR: Caught exception [ERROR: Unsupported command [doubleClick | //div[@id='content']/form/label[20] | ]]
-        browser.find_element_by_name("theform").click()
         Select(browser.find_element_by_name("aday")).select_by_visible_text("24")
         browser.find_element_by_name("aday").click()
         browser.find_element_by_name("amonth").click()
@@ -78,17 +71,19 @@ class TestAddNewContact(unittest.TestCase):
         browser.find_element_by_name("address2").clear()
         browser.find_element_by_name("address2").send_keys("St. Peterburg, Lenina 2")
         browser.find_element_by_name("phone2").clear()
-        browser.find_element_by_name("phone2").send_keys("Hpmetest")
+        browser.find_element_by_name("phone2").send_keys("Phone2test")
         browser.find_element_by_name("notes").clear()
         browser.find_element_by_name("notes").send_keys(u"Сдесь могла быть ваша рекламма")
         browser.find_element_by_xpath("(//input[@name='submit'])[2]").click()
+
         browser.find_element_by_link_text("home").click()
+        # logout
         browser.find_element_by_link_text("Logout").click()
 
-    def login(self, browser):
-        browser.find_element_by_name("user").send_keys("admin")
+    def login(self, browser, username, password):
+        browser.find_element_by_name("user").send_keys(username)
         browser.find_element_by_name("pass").clear()
-        browser.find_element_by_name("pass").send_keys("secret")
+        browser.find_element_by_name("pass").send_keys(password)
         browser.find_element_by_id("LoginForm").submit()
 
     def open_home_page(self, browser):
