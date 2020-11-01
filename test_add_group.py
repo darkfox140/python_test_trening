@@ -12,20 +12,14 @@ class TestAddGroup(unittest.TestCase):
 
     def test_add_group(self):
         browser = self.browser
-        self.open_home_page(browser)
         self.login(browser, username="admin", password="secret")
-        self.open_groups_page(browser)
         self.create_group(browser, Group(name="qwerty", header="qazxsw", footer="asdf"))
-        self.return_to_groups_page(browser)
         self.logout(browser)
 
     def test_add_empty_group(self):
         browser = self.browser
-        self.open_home_page(browser)
         self.login(browser, username="admin", password="secret")
-        self.open_groups_page(browser)
         self.create_group(browser, Group(name="", header="", footer=""))
-        self.return_to_groups_page(browser)
         self.logout(browser)
 
     def logout(self, browser):
@@ -35,6 +29,7 @@ class TestAddGroup(unittest.TestCase):
         browser.find_element(By.LINK_TEXT, "group page").click()
 
     def create_group(self, browser, group):
+        self.open_groups_page(browser)
         # init group creation
         browser.find_element(By.NAME, "new").click()
         # fill group form
@@ -46,11 +41,13 @@ class TestAddGroup(unittest.TestCase):
         browser.find_element(By.NAME, "group_footer").send_keys(group.footer)
         # submit group creation
         browser.find_element(By.NAME, "submit").click()
+        self.return_to_groups_page(browser)
 
     def open_groups_page(self, browser):
         browser.find_element(By.LINK_TEXT, "groups").click()
 
     def login(self, browser, username, password):
+        self.open_home_page(browser)
         browser.find_element(By.NAME, "user").clear()
         browser.find_element(By.NAME, "user").send_keys(username)
         browser.find_element(By.NAME, "pass").clear()
