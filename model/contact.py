@@ -1,4 +1,5 @@
 class NewContact:
+
     def __init__(self, first_name, middle_name, last_name, nick_name, tittle, company, address1, home_phone,
                  mobile_phone, work_phone, fax, email1, email2, email3, homepage, bday, bmonth, byear, aday, amonth,
                  ayear, address2, phone2, notes):
