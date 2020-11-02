@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
+from fixture.session import SessionHelper
 
 
 class Applicatin:
@@ -8,19 +9,11 @@ class Applicatin:
     def __init__(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(30)
+        self.session = SessionHelper(self)
 
     def open_home_page(self):
         browser = self.browser
         browser.get("http://localhost/addressbook/index.php")
-
-    def login(self, username, password):
-        browser = self.browser
-        self.open_home_page()
-        browser.find_element(By.NAME, "user").clear()
-        browser.find_element(By.NAME, "user").send_keys(username)
-        browser.find_element(By.NAME, "pass").clear()
-        browser.find_element(By.NAME, "pass").send_keys(password)
-        browser.find_element(By.XPATH, "//input[@value='Login']").click()
 
     def open_groups_page(self):
         browser = self.browser
@@ -45,10 +38,6 @@ class Applicatin:
     def return_to_groups_page(self):
         browser = self.browser
         browser.find_element(By.LINK_TEXT, "group page").click()
-
-    def logout(self):
-        browser = self.browser
-        browser.find_element(By.LINK_TEXT, "Logout").click()
 
     def create_new_contact(self, contact):
         browser = self.browser
