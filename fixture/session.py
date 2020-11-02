@@ -17,3 +17,5 @@ class SessionHelper:
     def logout(self):
         browser = self.app.browser
         browser.find_element(By.LINK_TEXT, "Logout").click()
+        browser.find_element(By.NAME, "user")
+
