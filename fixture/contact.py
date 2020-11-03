@@ -68,6 +68,12 @@ class ContactHelper:
         browser.find_element(By.XPATH, "(//input[@name='submit'])[2]").click()
         self.return_home()
 
+    def delete_first_contact(self):
+        browser = self.app.browser
+        browser.find_element(By.NAME, "selected[]").click()
+        browser.find_element(By.XPATH, "//input[@value='Delete']").click()
+        browser.switch_to_alert().accept()
+
     def return_home(self):
         browser = self.app.browser
         browser.find_element(By.LINK_TEXT, "home").click()
