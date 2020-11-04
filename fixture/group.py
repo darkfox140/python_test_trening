@@ -26,12 +26,10 @@ class GroupHelper:
         browser.find_element(By.NAME, "submit").click()
         self.return_to_groups_page()
 
-    def delele_first_group(self):
+    def delele_all_group(self):
         browser = self.app.browser
         self.open_groups_page()
-        # select first group
         browser.find_element(By.NAME, "selected[]").click()
-        # submit deletion
         browser.find_element(By.NAME, "delete").click()
         self.return_to_groups_page()
 
