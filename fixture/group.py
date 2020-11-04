@@ -35,6 +35,21 @@ class GroupHelper:
         browser.find_element(By.NAME, "delete").click()
         self.return_to_groups_page()
 
+    def modification_empty_group(self, group):
+        browser = self.app.browser
+        self.open_groups_page()
+        browser.find_element(By.NAME, "selected[]").click()
+        browser.find_element(By.XPATH, "//form/input[3]").click()
+        browser.find_element(By.NAME, "group_name").clear()
+        browser.find_element(By.NAME, "group_name").send_keys(group.name)
+        browser.find_element(By.NAME, "group_header").clear()
+        browser.find_element(By.NAME, "group_header").send_keys(group.header)
+        browser.find_element(By.NAME, "group_footer").clear()
+        browser.find_element(By.NAME, "group_footer").send_keys(group.footer)
+        browser.find_element(By.XPATH, "//form/input[3]").click()
+        self.return_to_groups_page()
+
     def return_to_groups_page(self):
         browser = self.app.browser
         browser.find_element(By.LINK_TEXT, "group page").click()
+
