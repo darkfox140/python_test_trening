@@ -26,10 +26,12 @@ class GroupHelper:
         browser.find_element(By.NAME, "submit").click()
         self.return_to_groups_page()
 
-    def delele_all_group(self):
+    def delete_all_group(self):
         browser = self.app.browser
         self.open_groups_page()
-        browser.find_element(By.NAME, "selected[]").click()
+        elements = browser.find_elements(By.CSS_SELECTOR, "input[type=checkbox]")
+        for element in elements:
+            element.click()
         browser.find_element(By.NAME, "delete").click()
         self.return_to_groups_page()
 
