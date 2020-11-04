@@ -139,6 +139,7 @@ class ContactHelper:
         browser.find_element(By.NAME, "selected[]").click()
         browser.find_element(By.XPATH, "//input[@value='Delete']").click()
         browser.switch_to_alert().accept()
+        browser.find_element(By.CSS_SELECTOR, "div.msgbox")
         self.return_home()
 
     def delete_all_contact(self):
@@ -146,6 +147,7 @@ class ContactHelper:
         browser.find_element(By.CSS_SELECTOR, "#MassCB").click()
         browser.find_element(By.XPATH, "//input[@value='Delete']").click()
         browser.switch_to_alert().accept()
+        browser.find_element(By.CSS_SELECTOR, "div.msgbox")
         self.return_home()
 
     def return_home(self):
