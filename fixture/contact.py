@@ -10,13 +10,24 @@ class ContactHelper:
     def create_new_contact(self, contact):
         browser = self.app.browser
         # init new contact creation
-        browser.find_element(By.LINK_TEXT, "add new").click()
+        self.open_add_new()
         # fill new contact form
-        self.fill_new_contact_form(browser, contact)
-        browser.find_element(By.XPATH, "(//input[@name='submit'])[2]").click()
+        self.fill_contact_form(contact)
+        browser.find_element(By.XPATH, "//form/input[21]").click()
         self.return_home()
 
-    def fill_new_contact_form(self, browser, contact):
+    def open_add_new(self):
+        browser = self.app.browser
+        browser.find_element(By.LINK_TEXT, "add new").click()
+
+    def create_empty_contact(self):
+        browser = self.app.browser
+        self.open_add_new()
+        browser.find_element(By.XPATH, "//form/input[21]").click()
+        self.return_home()
+
+    def fill_contact_form(self, contact):
+        browser = self.app.browser
         browser.find_element(By.NAME, "firstname").clear()
         browser.find_element(By.NAME, "firstname").send_keys(contact.first_name)
         browser.find_element(By.NAME, "middlename").clear()
@@ -60,7 +71,6 @@ class ContactHelper:
         browser.find_element(By.NAME, "aday").click()
         browser.find_element(By.NAME, "amonth").click()
         Select(browser.find_element(By.NAME, "amonth")).select_by_visible_text(contact.amonth)
-        browser.find_element(By.NAME, "amonth").click()
         browser.find_element(By.NAME, "ayear").clear()
         browser.find_element(By.NAME, "ayear").send_keys(contact.ayear)
         # Secondary
@@ -71,31 +81,19 @@ class ContactHelper:
         browser.find_element(By.NAME, "notes").clear()
         browser.find_element(By.NAME, "notes").send_keys(contact.notes)
 
-    def create_empty_contact(self):
+    def modification_first_contact(self, contact):
         browser = self.app.browser
-        browser.find_element(By.LINK_TEXT, "add new").click()
-        browser.find_element(By.XPATH, "(//input[@name='submit'])[2]").click()
         self.return_home()
-
-    def modification_empty_contact(self, contact):
-        browser = self.app.browser
         browser.find_element(By.NAME, "selected[]").click()
-        browser.find_element(By.XPATH, "//tbody/tr[2]/td[8]/a/img").click()
-        self.fill_new_contact_form(browser, contact)
+        browser.find_element(By.XPATH, "//tbody/tr[2]/td[8]/a").click()
+        self.fill_contact_form(contact)
         browser.find_element(By.XPATH, "//form[1]/input[22]").click()
         self.return_home()
 
     def delete_first_contact(self):
         browser = self.app.browser
-        browser.find_element(By.NAME, "selected[]").click()
-        browser.find_element(By.XPATH, "//input[@value='Delete']").click()
-        browser.switch_to_alert().accept()
-        browser.find_element(By.CSS_SELECTOR, "div.msgbox")
         self.return_home()
-
-    def delete_all_contact(self):
-        browser = self.app.browser
-        browser.find_element(By.CSS_SELECTOR, "#MassCB").click()
+        browser.find_element(By.NAME, "selected[]").click()
         browser.find_element(By.XPATH, "//input[@value='Delete']").click()
         browser.switch_to_alert().accept()
         browser.find_element(By.CSS_SELECTOR, "div.msgbox")
