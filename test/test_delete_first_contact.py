@@ -1,6 +1,6 @@
 
 
-def test_delete_group(app):
+def test_delete_first_contact(app):
     app.session.login(username="admin", password="secret")
-    app.group.delete_all_group()
+    app.cotact.delete_first_contact()
     app.session.logout()
