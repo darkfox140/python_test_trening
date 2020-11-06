@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 from model.contact import NewContact
 
 
 def test_add_new_contact(app):
-    app.session.login(username="admin", password="secret")
     app.cotact.create_new_contact(NewContact(last_name="Andrey", middle_name="Ivan", first_name="Maltsev",
                                              nick_name="Fox140",tittle="test", company="testcompany", address1="Moscow",
                                              home_phone="8495*******", mobile_phone="89168******",
@@ -12,10 +10,7 @@ def test_add_new_contact(app):
                                              homepage="testhomepage.ru", bday="14", bmonth="August", byear="1987",
                                              aday="24", amonth="October", ayear="2014", address2="Moscow, Lenina 2",
                                              phone2="Phone2test", notes="Test Moscow information"))
-    app.session.logout()
 
 
 def test_add_empty_contact(app):
-    app.session.login(username="admin", password="secret")
     app.cotact.create_empty_contact()
-    app.session.logout()
