@@ -16,15 +16,18 @@ class GroupHelper:
         # init group creation
         browser.find_element(By.NAME, "new").click()
         # fill group form
+        self.fill_group_form(browser, group)
+        # submit group creation
+        browser.find_element(By.NAME, "submit").click()
+        self.return_to_groups_page()
+
+    def fill_group_form(self, browser, group):
         browser.find_element(By.NAME, "group_name").clear()
         browser.find_element(By.NAME, "group_name").send_keys(group.name)
         browser.find_element(By.NAME, "group_header").clear()
         browser.find_element(By.NAME, "group_header").send_keys(group.header)
         browser.find_element(By.NAME, "group_footer").clear()
         browser.find_element(By.NAME, "group_footer").send_keys(group.footer)
-        # submit group creation
-        browser.find_element(By.NAME, "submit").click()
-        self.return_to_groups_page()
 
     def delete_all_group(self):
         browser = self.app.browser
@@ -40,12 +43,7 @@ class GroupHelper:
         self.open_groups_page()
         browser.find_element(By.NAME, "selected[]").click()
         browser.find_element(By.XPATH, "//form/input[3]").click()
-        browser.find_element(By.NAME, "group_name").clear()
-        browser.find_element(By.NAME, "group_name").send_keys(group.name)
-        browser.find_element(By.NAME, "group_header").clear()
-        browser.find_element(By.NAME, "group_header").send_keys(group.header)
-        browser.find_element(By.NAME, "group_footer").clear()
-        browser.find_element(By.NAME, "group_footer").send_keys(group.footer)
+        self.fill_group_form(browser, group)
         browser.find_element(By.XPATH, "//form/input[3]").click()
         self.return_to_groups_page()
 
