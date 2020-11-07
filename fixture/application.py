@@ -11,11 +11,10 @@ class Applicatin:
         self.browser.implicitly_wait(30)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
-        self.cotact = ContactHelper(self)
+        self.contact = ContactHelper(self)
 
     def is_valid(self):
         try:
-
             self.browser.current_url
             return True
         except:

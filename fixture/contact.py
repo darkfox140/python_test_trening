@@ -13,18 +13,21 @@ class ContactHelper:
         self.open_add_new()
         # fill new contact form
         self.fill_contact_form(contact)
-        browser.find_element(By.XPATH, "//form/input[21]").click()
-        self.return_home()
+        self.submit_enter()
+        self.open_home()
 
     def open_add_new(self):
         browser = self.app.browser
         browser.find_element(By.LINK_TEXT, "add new").click()
 
     def create_empty_contact(self):
-        browser = self.app.browser
         self.open_add_new()
+        self.submit_enter()
+        self.open_home()
+
+    def submit_enter(self):
+        browser = self.app.browser
         browser.find_element(By.XPATH, "//form/input[21]").click()
-        self.return_home()
 
     def fill_contact_form(self, contact):
         browser = self.app.browser
@@ -83,22 +86,22 @@ class ContactHelper:
 
     def modification_first_contact(self, contact):
         browser = self.app.browser
-        self.return_home()
+        self.open_home()
         browser.find_element(By.NAME, "selected[]").click()
         browser.find_element(By.XPATH, "//tbody/tr[2]/td[8]/a").click()
         self.fill_contact_form(contact)
         browser.find_element(By.XPATH, "//form[1]/input[22]").click()
-        self.return_home()
+        self.open_home()
 
     def delete_first_contact(self):
         browser = self.app.browser
-        self.return_home()
+        self.open_home()
         browser.find_element(By.NAME, "selected[]").click()
         browser.find_element(By.XPATH, "//input[@value='Delete']").click()
         browser.switch_to_alert().accept()
         browser.find_element(By.CSS_SELECTOR, "div.msgbox")
-        self.return_home()
+        self.open_home()
 
-    def return_home(self):
+    def open_home(self):
         browser = self.app.browser
         browser.find_element(By.LINK_TEXT, "home").click()

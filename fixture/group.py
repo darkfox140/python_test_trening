@@ -23,28 +23,38 @@ class GroupHelper:
 
     def fill_group_form(self, group):
         browser = self.app.browser
-        browser.find_element(By.NAME, "group_name").clear()
-        browser.find_element(By.NAME, "group_name").send_keys(group.name)
-        browser.find_element(By.NAME, "group_header").clear()
-        browser.find_element(By.NAME, "group_header").send_keys(group.header)
-        browser.find_element(By.NAME, "group_footer").clear()
-        browser.find_element(By.NAME, "group_footer").send_keys(group.footer)
+        self.change_field_value("group_name", group.name)
+        self.change_field_value("group_header", group.header)
+        self.change_field_value("group_footer", group.footer)
+
+    def change_field_value(self, field_name, text):
+        browser = self.app.browser
+        if text is not None:
+            browser.find_element(By.NAME, field_name).clear()
+            browser.find_element(By.NAME, field_name).send_keys(text)
 
     def delete_first_group(self):
         browser = self.app.browser
         self.open_groups_page()
-        browser.find_element(By.NAME, "selected[]").click()
+        self.select_first_group()
         browser.find_element(By.NAME, "delete").click()
         self.return_to_groups_page()
 
-    def modification_firtst_group(self, group):
+    def modification_first_group(self, new_group_date):
         browser = self.app.browser
         self.open_groups_page()
-        browser.find_element(By.NAME, "selected[]").click()
+        self.select_first_group()
+        # Open modification form
         browser.find_element(By.XPATH, "//form/input[3]").click()
-        self.fill_group_form(group)
+        # fill group form
+        self.fill_group_form(new_group_date)
+        # Submit modification
         browser.find_element(By.XPATH, "//form/input[3]").click()
         self.return_to_groups_page()
+
+    def select_first_group(self):
+        browser = self.app.browser
+        browser.find_element(By.NAME, "selected[]").click()
 
     def return_to_groups_page(self):
         browser = self.app.browser
