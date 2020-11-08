@@ -4,11 +4,11 @@ from fixture.group import GroupHelper
 from fixture.contact import ContactHelper
 
 
-class Applicatin:
+class Application:
 
     def __init__(self):
         self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(30)
+        self.browser.implicitly_wait(5)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
