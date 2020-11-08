@@ -87,7 +87,7 @@ class ContactHelper:
     def modification_first_contact(self, contact):
         browser = self.app.browser
         self.open_home()
-        browser.find_element(By.NAME, "selected[]").click()
+        self.select_first_contact()
         browser.find_element(By.XPATH, "//tbody/tr[2]/td[8]/a").click()
         self.fill_contact_form(contact)
         browser.find_element(By.XPATH, "//form[1]/input[22]").click()
@@ -96,11 +96,15 @@ class ContactHelper:
     def delete_first_contact(self):
         browser = self.app.browser
         self.open_home()
-        browser.find_element(By.NAME, "selected[]").click()
+        self.select_first_contact()
         browser.find_element(By.XPATH, "//input[@value='Delete']").click()
         browser.switch_to_alert().accept()
         browser.find_element(By.CSS_SELECTOR, "div.msgbox")
         self.open_home()
+
+    def select_first_contact(self):
+        browser = self.app.browser
+        browser.find_element(By.NAME, "selected[]").click()
 
     def open_home(self):
         browser = self.app.browser
