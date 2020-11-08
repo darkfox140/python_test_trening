@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium import webdriver
 
 
 class SessionHelper:
@@ -19,4 +20,10 @@ class SessionHelper:
         browser = self.app.browser
         browser.find_element(By.LINK_TEXT, "Logout").click()
         browser.find_element(By.NAME, "user")
+
+    def ensure_logout(self):
+        browser = self.app.browser
+        if len(browser.find_elements(By.LINK_TEXT, "Logout")) > 0:
+            self.logout()
+
 

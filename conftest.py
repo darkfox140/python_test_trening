@@ -1,4 +1,4 @@
-from fixture.application import Applicatin
+from fixture.application import Application
 import pytest
 
 fixture = None
@@ -8,11 +8,11 @@ fixture = None
 def app(request):
     global fixture
     if fixture is None:
-        fixture = Applicatin()
+        fixture = Application()
         fixture.session.login(username="admin", password="secret")
     else:
         if not fixture.is_valid():
-            fixture = Applicatin()
+            fixture = Application()
             fixture.session.login(username="admin", password="secret")
     return fixture
 
@@ -20,7 +20,7 @@ def app(request):
 @pytest.fixture(scope="session", autouse=True)
 def stop(request):
     def fin():
-        fixture.session.logout()
+        fixture.session.ensure_logout()
         fixture.destroy()
     request.addfinalizer(fin)
     return fixture
