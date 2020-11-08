@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium import webdriver
 
 
 class SessionHelper:
@@ -25,5 +24,18 @@ class SessionHelper:
         browser = self.app.browser
         if len(browser.find_elements(By.LINK_TEXT, "Logout")) > 0:
             self.logout()
+
+    def ensure_login(self, username, password):
+        browser = self.app.browser
+        if len(browser.find_elements(By.LINK_TEXT, "Logout")) > 0:
+            if self.is_logged_in_as(username):
+                return
+            else:
+                self.logout()
+        self.login(username, password)
+
+    def is_logged_in_as(self, username):
+        browser = self.app.browser
+        return browser.find_element(By.XPATH, "//form/b").text == "("+username+")"
 
 
