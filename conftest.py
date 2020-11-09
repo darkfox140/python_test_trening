@@ -23,3 +23,4 @@ def stop(request):
         fixture.destroy()
     request.addfinalizer(fin)
     return fixture
+
