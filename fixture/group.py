@@ -10,7 +10,7 @@ class GroupHelper:
         browser = self.app.browser
         browser.find_element(By.LINK_TEXT, "groups").click()
 
-    def create(self, group):
+    def create_group(self, group):
         browser = self.app.browser
         self.open_groups_page()
         # init group creation
