@@ -8,7 +8,8 @@ class GroupHelper:
 
     def open_groups_page(self):
         browser = self.app.browser
-        browser.find_element(By.LINK_TEXT, "groups").click()
+        if not (browser.current_url.endswith("/group.php") and len(browser.find_elements(By.NAME, "new")) > 0):
+            browser.find_element(By.LINK_TEXT, "groups").click()
 
     def create_group(self, group):
         browser = self.app.browser
@@ -64,6 +65,3 @@ class GroupHelper:
         browser = self.app.browser
         self.open_groups_page()
         return len(browser.find_elements(By.NAME, "selected[]"))
-
-
-
