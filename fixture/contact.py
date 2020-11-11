@@ -7,6 +7,10 @@ class ContactHelper:
     def __init__(self, app):
         self.app = app
 
+    def open_add_new(self):
+        browser = self.app.browser
+        browser.find_element(By.LINK_TEXT, "add new").click()
+
     def create_new_contact(self, contact):
         browser = self.app.browser
         # init new contact creation
@@ -14,10 +18,6 @@ class ContactHelper:
         self.fill_contact_form(contact)
         self.submit_enter()
         self.open_home()
-
-    def open_add_new(self):
-        browser = self.app.browser
-        browser.find_element(By.LINK_TEXT, "add new").click()
 
     def create_empty_contact(self):
         self.open_add_new()
@@ -102,7 +102,9 @@ class ContactHelper:
 
     def open_home(self):
         browser = self.app.browser
-        browser.find_element(By.LINK_TEXT, "home").click()
+        if not (browser.current_url.endswith("/index.php") and
+                len(browser.find_elements(By.XPATH, "//form[2]/div[1]/input")) > 0):
+            browser.find_element(By.LINK_TEXT, "home").click()
 
     def count(self):
         browser = self.app.browser
