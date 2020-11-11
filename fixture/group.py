@@ -60,3 +60,10 @@ class GroupHelper:
         browser = self.app.browser
         browser.find_element(By.LINK_TEXT, "group page").click()
 
+    def count(self):
+        browser = self.app.browser
+        self.open_groups_page()
+        return len(browser.find_elements(By.NAME, "selected[]"))
+
+
+
