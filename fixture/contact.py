@@ -103,3 +103,8 @@ class ContactHelper:
     def open_home(self):
         browser = self.app.browser
         browser.find_element(By.LINK_TEXT, "home").click()
+
+    def count(self):
+        browser = self.app.browser
+        self.open_home()
+        return len(browser.find_elements(By.NAME, "selected[]"))
