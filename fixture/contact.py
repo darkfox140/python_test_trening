@@ -13,7 +13,6 @@ class ContactHelper:
 
     def create_new_contact(self, contact):
         browser = self.app.browser
-        # init new contact creation
         self.open_add_new()
         self.fill_contact_form(contact)
         self.submit_enter()
