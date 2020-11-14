@@ -118,5 +118,5 @@ class ContactHelper:
         for element in browser.find_elements(By.XPATH, "//tbody/tr/td[1]"):
             text = element.text
             id = element.find_element(By.NAME, "selected[]").get_attribute("value")
-            contacts.append(NewContact(first_name="test", id=id))
+            contacts.append(NewContact(first_name=text, id=id))
         return contacts

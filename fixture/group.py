@@ -74,5 +74,5 @@ class GroupHelper:
         for element in browser.find_elements(By.CSS_SELECTOR, "span.group"):
             text = element.text
             id = element.find_element(By.NAME, "selected[]").get_attribute("value")
-            groups.append(Group(name="text", id=id))
+            groups.append(Group(name=text, id=id))
         return groups
