@@ -10,7 +10,6 @@ def test_modification_group_name(app):
     assert len(old_groups) == len(new_groups)
 
 
-
 def test_modification_group_header(app):
     if app.group.count() == 0:
         app.group.create_group(Group(header="test header"))
