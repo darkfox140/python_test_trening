@@ -115,8 +115,10 @@ class ContactHelper:
         browser = self.app.browser
         self.open_home()
         contacts = []
-        for element in browser.find_elements(By.XPATH, "//tbody/tr/td[3]"):
-            text = element.text
+        for element1 in browser.find_elements(By.XPATH, "//tbody/tr/td[3]"):
+            text1 = element1.text
+            elements2 = browser.find_element(By.XPATH, "//tbody/tr/td[2]")
+            text2 = elements2.text
             id = browser.find_element(By.NAME, "selected[]").get_attribute("value")
-            contacts.append(NewContact(first_name=text, id=id))
+            contacts.append(NewContact(first_name=text1, last_name=text2, id=id))
         return contacts
