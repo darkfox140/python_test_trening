@@ -113,10 +113,10 @@ class ContactHelper:
         table = browser.find_element(By.ID, "maintable")
         line = table.find_elements(By.NAME, "entry")
         for cells in line.find_elements(By.XPATH, "//tr/td"):
-            lastname = cells.find_element(By.XPATH, "//tbody/tr/td[2]")
+            lastname = cells.find_elements(By.XPATH, ".//tbody/tr/td[2]")
             lastname_text = lastname.text
             id = cells.find_element(By.NAME, "selected[]").get_attribute("value")
-            firstname = cells.find_element(By.XPATH, "//tbody/tr/td[3]")
+            firstname = cells.find_element(By.XPATH, ".//tbody/tr/td[3]")
             firstname_text = firstname.text
             contacts.append(NewContact(last_name=lastname_text, first_name=firstname_text, id=id))
         return contacts
