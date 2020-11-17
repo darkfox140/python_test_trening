@@ -111,7 +111,7 @@ class ContactHelper:
         self.open_home()
         contacts = []
         for elements in browser.find_elements(By.NAME, "entry"):
-            cells = elements.find_elements(By.XPATH, "//td")
+            cells = elements.find_elements(By.XPATH, ".//td")
             last_text = cells[1].text
             first_text = cells[2].text
             id = elements.find_element(By.NAME, "selected[]").get_attribute("value")
