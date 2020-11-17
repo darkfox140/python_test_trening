@@ -115,11 +115,13 @@ class ContactHelper:
         browser = self.app.browser
         self.open_home()
         contacts = []
-        for element in browser.find_elements(By.NAME, "entry"):
-            lastname = element.find_element(By.XPATH, "//td[2]")
+        table = browser.find_element(By.ID, "maintable")
+        line = table.find_elements(By.NAME, "entry")
+        for element in line.find_elements(By.NAME, "entry"):
+            lastname = element.find_elements(By.XPATH, "//tbody/tr/td[2]")
             lastname_text = lastname.text
-            id = element.find_element(By.NAME, "selected[]").get_attribute("value")
-            firstname = element.find_element(By.XPATH, "//td[3]")
+            id = element.find_elements(By.NAME, "selected[]").get_attribute("value")
+            firstname = element.find_element(By.XPATH, "//tbody/tr/td[3]")
             firstname_text = firstname.text
             contacts.append(NewContact(last_name=lastname_text, first_name=firstname_text, id=id))
         return contacts
