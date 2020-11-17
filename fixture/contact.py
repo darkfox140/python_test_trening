@@ -19,11 +19,6 @@ class ContactHelper:
         self.submit_enter()
         self.open_home()
 
-    def create_empty_contact(self):
-        self.open_add_new()
-        self.submit_enter()
-        self.open_home()
-
     def submit_enter(self):
         browser = self.app.browser
         browser.find_element(By.XPATH, "//form/input[21]").click()
