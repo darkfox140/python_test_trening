@@ -116,7 +116,8 @@ class ContactHelper:
         self.open_home()
         contacts = []
         table = browser.find_element(By.ID, "maintable")
-        for cells in table.find_elements(By.NAME, "entry"):
+        line = table.find_elements(By.NAME, "entry")
+        for cells in line.find_elements(By.XPATH, "//tr/td"):
             lastname = cells.find_element(By.XPATH, "//tbody/tr/td[2]")
             lastname_text = lastname.text
             id = cells.find_element(By.NAME, "selected[]").get_attribute("value")
