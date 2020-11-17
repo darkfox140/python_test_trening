@@ -18,11 +18,11 @@ def test_add_new_contact(app):
     assert sorted(old_contact, key=NewContact.id_or_max) == sorted(new_contact, key=NewContact.id_or_max)
 
 
-def test_add_empty_contact(app):
+'''def test_add_empty_contact(app):
     old_contact = app.contact.get_contact_list()
     con = NewContact(first_name="", last_name="")
     app.contact.create_new_contact(con)
     new_contact = app.contact.get_contact_list()
     assert len(old_contact) + 1 == len(new_contact)
     old_contact.append(con)
-    assert sorted(old_contact, key=NewContact.id_or_max) == sorted(new_contact, key=NewContact.id_or_max)
+    assert sorted(old_contact, key=NewContact.id_or_max) == sorted(new_contact, key=NewContact.id_or_max)'''

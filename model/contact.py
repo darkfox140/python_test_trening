@@ -33,11 +33,11 @@ class NewContact:
         self.id = id
 
     def __repr__(self):
-        return "%s:%s:%s" % (self.first_name, self.last_name, self.id)
+        return "%s:%s:%s" % (self.id, self.first_name, self.last_name)
 
     def __eq__(self, other):
         return (self.id is None or other.id is None or self.id == other.id) and self.first_name == other.first_name \
-               or self.last_name == other.last_name
+               and self.last_name == other.last_name
 
     def id_or_max(self):
         if self.id:

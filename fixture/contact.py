@@ -111,12 +111,14 @@ class ContactHelper:
         self.open_home()
         contacts = []
         table = browser.find_element(By.ID, "maintable")
-        line = table.find_elements(By.NAME, "entry")
-        for cells in line.find_elements(By.XPATH, "//tr/td"):
-            lastname = cells.find_elements(By.XPATH, ".//tbody/tr/td[2]")
-            lastname_text = lastname.text
-            id = cells.find_element(By.NAME, "selected[]").get_attribute("value")
-            firstname = cells.find_element(By.XPATH, ".//tbody/tr/td[3]")
-            firstname_text = firstname.text
-            contacts.append(NewContact(last_name=lastname_text, first_name=firstname_text, id=id))
+        rows = table.find_elements(By.NAME, "entry")
+        for row in rows:
+            cells = row.find_elements(By.NAME, "//tr/td")
+            for element in cells:
+                lastname = element.find_element(By.XPATH, ".//tr/td[2]")
+                last_text = lastname.text
+                id = cells.find_element(By.NAME, "selected[]").get_attribute("value")
+                firstname = element.find_element(By.XPATH, ".//tr/td[3]")
+                first_text = firstname.text
+                contacts.append(NewContact(last_name=last_text, first_name=first_text, id=id))
         return contacts
