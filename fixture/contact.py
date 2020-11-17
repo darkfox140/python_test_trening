@@ -110,15 +110,10 @@ class ContactHelper:
         browser = self.app.browser
         self.open_home()
         contacts = []
-        table = browser.find_element(By.ID, "maintable")
-        rows = table.find_elements(By.NAME, "entry")
-        for row in rows:
-            cells = row.find_elements(By.NAME, "//tr/td")
-            for element in cells:
-                lastname = element.find_element(By.XPATH, ".//tr/td[2]")
-                last_text = lastname.text
-                id = cells.find_element(By.NAME, "selected[]").get_attribute("value")
-                firstname = element.find_element(By.XPATH, ".//tr/td[3]")
-                first_text = firstname.text
-                contacts.append(NewContact(last_name=last_text, first_name=first_text, id=id))
+        for elements in browser.find_elements(By.NAME, "entry"):
+            cells = elements.find_elements(By.XPATH, "//td")[1:]
+            last_text = cells[0].text
+            first_text = cells[1].text
+            id = elements.find_element(By.NAME, "selected[]").get_attribute("value")
+            contacts.append(NewContact(last_name=last_text, first_name=first_text, id=id))
         return contacts
