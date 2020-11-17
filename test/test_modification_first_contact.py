@@ -5,7 +5,7 @@ def test_modification_first_contact_address1(app):
     if app.contact.count() == 0:
         app.contact.create_new_contact(NewContact(first_name="test"))
     old_contact = app.contact.get_contact_list()
-    cont = NewContact(first_name="Виктор")
+    cont = NewContact(first_name="Виктор", last_name="Петров")
     cont.id = old_contact[0].id
     app.contact.modification_first_contact(cont)
     new_contact = app.contact.get_contact_list()
