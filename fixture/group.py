@@ -37,17 +37,23 @@ class GroupHelper:
             browser.find_element(By.NAME, field_name).send_keys(text)
 
     def delete_first_group(self):
+        self.delete_group_by_index(0)
+
+    def delete_group_by_index(self, index):
         browser = self.app.browser
         self.open_groups_page()
-        self.select_first_group()
+        self.select_group_by_index(index)
         browser.find_element(By.NAME, "delete").click()
         self.return_to_groups_page()
         self.group_cashe = None
 
-    def modification_first_group(self, new_group_date):
+    def modification_first_group(self):
+        self.modification_group_by_index(0)
+
+    def modification_group_by_index(self, index,  new_group_date):
         browser = self.app.browser
         self.open_groups_page()
-        self.select_first_group()
+        self.select_group_by_index(index)
         # Open modification form
         browser.find_element(By.XPATH, "//form/input[3]").click()
         # fill group form
@@ -60,6 +66,10 @@ class GroupHelper:
     def select_first_group(self):
         browser = self.app.browser
         browser.find_element(By.NAME, "selected[]").click()
+
+    def select_group_by_index(self, index):
+        browser = self.app.browser
+        browser.find_elements(By.NAME, "selected[]")[index].click()
 
     def return_to_groups_page(self):
         browser = self.app.browser
