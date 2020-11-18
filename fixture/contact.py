@@ -81,7 +81,7 @@ class ContactHelper:
         browser = self.app.browser
         self.open_home()
         self.select_contact_by_index(index)
-        browser.find_element(By.CSS_SELECTOR, "#maintable  td:nth-child(8) a img").click()
+        browser.find_element(By.XPATH, "//tr[2]/td[8]/a/img").click()
         self.fill_contact_form(new_contact_form)
         browser.find_element(By.XPATH, "//form[1]/input[22]").click()
         self.open_home()
