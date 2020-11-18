@@ -74,11 +74,14 @@ class ContactHelper:
             browser.find_element(By.NAME, field_name).clear()
             browser.find_element(By.NAME, field_name).send_keys(text)
 
-    def modification_first_contact(self, new_contact_form):
+    def modification_first_contact(self):
+        self.modification_contact_by_index(0)
+
+    def modification_contact_by_index(self, index, new_contact_form):
         browser = self.app.browser
         self.open_home()
-        self.select_first_contact()
-        browser.find_element(By.XPATH, "//tbody/tr[2]/td[8]/a").click()
+        self.select_contact_by_index(index)
+        browser.find_element(By.CSS_SELECTOR, "#maintable  td:nth-child(8) a img").click()
         self.fill_contact_form(new_contact_form)
         browser.find_element(By.XPATH, "//form[1]/input[22]").click()
         self.open_home()
