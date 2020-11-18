@@ -22,6 +22,7 @@ class GroupHelper:
         # submit group creation
         browser.find_element(By.NAME, "submit").click()
         self.return_to_groups_page()
+        self.group_cashe = None
 
     def fill_group_form(self, group):
         browser = self.app.browser
@@ -41,6 +42,7 @@ class GroupHelper:
         self.select_first_group()
         browser.find_element(By.NAME, "delete").click()
         self.return_to_groups_page()
+        self.group_cashe = None
 
     def modification_first_group(self, new_group_date):
         browser = self.app.browser
@@ -53,6 +55,7 @@ class GroupHelper:
         # Submit modification
         browser.find_element(By.XPATH, "//form/input[3]").click()
         self.return_to_groups_page()
+        self.group_cashe = None
 
     def select_first_group(self):
         browser = self.app.browser
@@ -67,12 +70,15 @@ class GroupHelper:
         self.open_groups_page()
         return len(browser.find_elements(By.NAME, "selected[]"))
 
+    group_cashe = None
+
     def get_group_list(self):
-        browser = self.app.browser
-        self.open_groups_page()
-        groups = []
-        for element in browser.find_elements(By.CSS_SELECTOR, "span.group"):
-            text = element.text
-            id = element.find_element(By.NAME, "selected[]").get_attribute("value")
-            groups.append(Group(name=text, id=id))
-        return groups
+        if self.group_cashe is None:
+            browser = self.app.browser
+            self.open_groups_page()
+            self.group_cashe = []
+            for element in browser.find_elements(By.CSS_SELECTOR, "span.group"):
+                text = element.text
+                id = element.find_element(By.NAME, "selected[]").get_attribute("value")
+                self.group_cashe.append(Group(name=text, id=id))
+        return list(self.group_cashe)
