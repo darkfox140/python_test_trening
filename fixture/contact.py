@@ -18,6 +18,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         self.submit_enter()
         self.open_home()
+        self.contact_cashe = None
 
     def submit_enter(self):
         browser = self.app.browser
@@ -81,6 +82,7 @@ class ContactHelper:
         self.fill_contact_form(new_contact_form)
         browser.find_element(By.XPATH, "//form[1]/input[22]").click()
         self.open_home()
+        self.contact_cashe = None
 
     def delete_first_contact(self,):
         browser = self.app.browser
@@ -90,6 +92,7 @@ class ContactHelper:
         browser.switch_to_alert().accept()
         browser.find_element(By.CSS_SELECTOR, "div.msgbox")
         self.open_home()
+        self.contact_cashe = None
 
     def select_first_contact(self):
         browser = self.app.browser
@@ -106,14 +109,17 @@ class ContactHelper:
         self.open_home()
         return len(browser.find_elements(By.NAME, "selected[]"))
 
+    contact_cashe = None # Кеширование списка контактов, сбрасывается после добавления\удаления\модификации
+
     def get_contact_list(self):
-        browser = self.app.browser
-        self.open_home()
-        contacts = []
-        for elements in browser.find_elements(By.NAME, "entry"):
-            cells = elements.find_elements(By.XPATH, ".//td") # Данная точка найтёт текст
-            last_text = cells[1].text
-            first_text = cells[2].text
-            id = elements.find_element(By.NAME, "selected[]").get_attribute("value")
-            contacts.append(NewContact(last_name=last_text, first_name=first_text, id=id))
-        return contacts
+        if self.contact_cashe is None:
+            browser = self.app.browser
+            self.open_home()
+            self.contact_cashe = []
+            for elements in browser.find_elements(By.NAME, "entry"):
+                cells = elements.find_elements(By.XPATH, ".//td") # Данная точка найтёт текст
+                last_text = cells[1].text
+                first_text = cells[2].text
+                id = elements.find_element(By.NAME, "selected[]").get_attribute("value")
+                self.contact_cashe.append(NewContact(last_name=last_text, first_name=first_text, id=id))
+        return list(self.contact_cashe)
