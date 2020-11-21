@@ -81,8 +81,8 @@ class ContactHelper:
         browser = self.app.browser
         self.open_home()
         contact_elem = browser.find_elements(By.NAME, "entry")
-        cells = contact_elem[index].find_elements(By.TAG_NAME, "td")
-        cells[7].find_element(By.CSS_SELECTOR, "#maintable a img").click()
+        cells = contact_elem[index].find_elements(By.TAG_NAME, "td")[7]
+        cells.find_element(By.CSS_SELECTOR, "#maintable a img").click()
         self.fill_contact_form(new_contact_form)
         browser.find_element(By.XPATH, "//form[1]/input[22]").click()
         self.open_home()
