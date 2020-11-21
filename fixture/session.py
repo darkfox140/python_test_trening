@@ -41,5 +41,3 @@ class SessionHelper:
     def get_logged_user(self):
         browser = self.app.browser
         return browser.find_element(By.XPATH, "//form/b").text[1:-1]
-
-
