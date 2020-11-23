@@ -80,13 +80,23 @@ class ContactHelper:
     def modification_contact_by_index(self, index, new_contact_form):
         browser = self.app.browser
         self.open_home()
-        contact_elem = browser.find_elements(By.NAME, "entry")
-        cells = contact_elem[index].find_elements(By.TAG_NAME, "td")[7]
-        cells.find_element(By.CSS_SELECTOR, "#maintable a img").click()
+        self.open_contact_to_edit_by_index(index)
         self.fill_contact_form(new_contact_form)
         browser.find_element(By.XPATH, "//form[1]/input[22]").click()
         self.open_home()
         self.contact_cashe = None
+
+    def open_contact_to_edit_by_index(self, index):
+        browser = self.app.browser
+        contact_elem = browser.find_elements(By.NAME, "entry")
+        cells = contact_elem[index].find_elements(By.TAG_NAME, "td")[7]
+        cells.find_element(By.CSS_SELECTOR, "#maintable a img").click()
+
+    def open_contact_view_index(self, index):
+        browser = self.app.browser
+        contact_elem = browser.find_elements(By.NAME, "entry")
+        cells = contact_elem[index].find_elements(By.TAG_NAME, "td")[6]
+        cells.find_element(By.CSS_SELECTOR, "#maintable a img").click()
 
     def delete_first_contact(self):
         self.delete_contact_by_index(0)
