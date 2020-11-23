@@ -80,7 +80,10 @@ class ContactHelper:
     def modification_contact_by_index(self, index, new_contact_form):
         browser = self.app.browser
         self.open_home()
-        self.open_contact_to_edit_by_index(index)
+        browser = self.app.browser
+        contact_elem = browser.find_elements(By.NAME, "entry")
+        cells = contact_elem[index].find_elements(By.TAG_NAME, "td")
+        cells[7].find_element(By.CSS_SELECTOR, "#maintable a img").click()
         self.fill_contact_form(new_contact_form)
         browser.find_element(By.XPATH, "//form[1]/input[22]").click()
         self.open_home()
@@ -88,14 +91,16 @@ class ContactHelper:
 
     def open_contact_to_edit_by_index(self, index):
         browser = self.app.browser
-        contact_elem = browser.find_elements(By.NAME, "entry")
-        cells = contact_elem[index].find_elements(By.TAG_NAME, "td")[7]
-        cells.find_element(By.CSS_SELECTOR, "#maintable a img").click()
+        self.open_home()
+        contact_elem = browser.find_elements(By.NAME, "entry")[index]
+        cells = contact_elem.find_elements(By.TAG_NAME, "td")[7]
+        cells.find_element(By.TAG_NAME, "a").click()
 
     def open_contact_view_index(self, index):
         browser = self.app.browser
-        contact_elem = browser.find_elements(By.NAME, "entry")
-        cells = contact_elem[index].find_elements(By.TAG_NAME, "td")[6]
+        self.open_home()
+        contact_elem = browser.find_elements(By.NAME, "entry")[index]
+        cells = contact_elem.find_elements(By.TAG_NAME, "td")[6]
         cells.find_element(By.CSS_SELECTOR, "#maintable a img").click()
 
     def delete_first_contact(self):
@@ -142,5 +147,21 @@ class ContactHelper:
                 last_text = cells[1].text
                 first_text = cells[2].text
                 id = elements.find_element(By.NAME, "selected[]").get_attribute("value")
-                self.contact_cashe.append(NewContact(last_name=last_text, first_name=first_text, id=id))
+                all_phones = cells[5].text.splitlines()
+                self.contact_cashe.append(NewContact(last_name=last_text, first_name=first_text, id=id,
+                                                     home_phone=all_phones[0], mobile_phone=all_phones[1],
+                                                     work_phone=all_phones[2], phone2=all_phones[3]))
         return list(self.contact_cashe)
+
+    def get_contact_info_from_edit_page(self, index):
+        browser = self.app.browser
+        self.open_contact_to_edit_by_index(index)
+        firstname = browser.find_element(By.NAME, "firstname").get_attribute("value")
+        lastname = browser.find_element(By.NAME, "lastname").get_attribute("value")
+        homephone = browser.find_element(By.NAME, "home").get_attribute("value")
+        mobilephone = browser.find_element(By.NAME, "mobile").get_attribute("value")
+        workphone = browser.find_element(By.NAME, "work").get_attribute("value")
+        secondaryphone = browser.find_element(By.NAME, "phone2").get_attribute("value")
+        id = browser.find_element(By.NAME, "id").get_attribute("value")
+        return NewContact(first_name=firstname, last_name=lastname, home_phone=homephone, mobile_phone=mobilephone,
+                          work_phone=workphone, phone2=secondaryphone, id=id)
