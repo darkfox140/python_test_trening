@@ -143,7 +143,7 @@ class ContactHelper:
             self.open_home()
             self.contact_cashe = []
             for elements in browser.find_elements(By.NAME, "entry"):
-                cells = elements.find_elements(By.XPATH, ".//td") # Данная точка найтёт текст
+                cells = elements.find_elements(By.TAG_NAME, "td") # Данная точка найтёт текст
                 last_text = cells[1].text
                 first_text = cells[2].text
                 id = elements.find_element(By.NAME, "selected[]").get_attribute("value")
