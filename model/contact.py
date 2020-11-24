@@ -5,7 +5,8 @@ class NewContact:
     def __init__(self, first_name=None, middle_name=None, last_name=None, nick_name=None, tittle=None, company=None,
                  address1=None, home_phone=None, mobile_phone=None, work_phone=None, fax=None, email1=None, email2=None,
                  email3=None, homepage=None, bday=None, bmonth=None, byear=None, aday=None, amonth=None, ayear=None,
-                 address2=None, phone2=None, notes=None, id=None):
+                 address2=None, phone2=None, notes=None, id=None, all_phones_from_home_page=None,
+                 all_email_from_home_page=None):
         self.first_name = first_name
         self.middle_name = middle_name
         self.last_name = last_name
@@ -31,6 +32,8 @@ class NewContact:
         self.phone2 = phone2
         self.notes = notes
         self.id = id
+        self.all_phones_from_home_page = all_phones_from_home_page
+        self.all_email_from_home_page = all_email_from_home_page
 
     def __repr__(self):
         return "%s:%s:%s" % (self.id, self.last_name, self.first_name)
