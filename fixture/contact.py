@@ -161,17 +161,17 @@ class ContactHelper:
         self.open_contact_to_edit_by_index(index)
         firstname = browser.find_element(By.NAME, "firstname").get_attribute("value")
         lastname = browser.find_element(By.NAME, "lastname").get_attribute("value")
-        homephone = browser.find_element(By.NAME, "home").get_attribute("value")
         address = browser.find_element(By.NAME, "address").text
         email1 = browser.find_element(By.NAME, "email").get_attribute("value")
         email2 = browser.find_element(By.NAME, "email2").get_attribute("value")
         email3 = browser.find_element(By.NAME, "email3").get_attribute("value")
+        homephone = browser.find_element(By.NAME, "home").get_attribute("value")
         mobilephone = browser.find_element(By.NAME, "mobile").get_attribute("value")
         workphone = browser.find_element(By.NAME, "work").get_attribute("value")
         secondaryphone = browser.find_element(By.NAME, "phone2").get_attribute("value")
         id = browser.find_element(By.NAME, "id").get_attribute("value")
-        return NewContact(first_name=firstname, last_name=lastname, address1=address, home_phone=homephone,
-                          email1=email1, email2=email2, email3=email3, mobile_phone=mobilephone, work_phone=workphone,
+        return NewContact(first_name=firstname, last_name=lastname, address1=address, email1=email1, email2=email2,
+                          email3=email3, home_phone=homephone, mobile_phone=mobilephone, work_phone=workphone,
                           phone2=secondaryphone, id=id)
 
     def get_contact_from_view_page(self, index):
@@ -184,4 +184,3 @@ class ContactHelper:
         secondaryphone = re.search("P: (.*)", text).group(1)
         return NewContact(home_phone=homephone, mobile_phone=mobilephone, work_phone=workphone,
                           phone2=secondaryphone, id=id)
-
