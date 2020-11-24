@@ -145,13 +145,15 @@ class ContactHelper:
             self.contact_cashe = []
             for elements in browser.find_elements(By.NAME, "entry"):
                 cells = elements.find_elements(By.TAG_NAME, "td") # Данная точка найтёт текст
+                id = elements.find_element(By.NAME, "selected[]").get_attribute("value")
                 last_text = cells[1].text
                 first_text = cells[2].text
-                id = elements.find_element(By.NAME, "selected[]").get_attribute("value")
-                all_phones = cells[5].text.splitlines()
-                self.contact_cashe.append(NewContact(last_name=last_text, first_name=first_text, id=id,
-                                                     home_phone=all_phones[0], mobile_phone=all_phones[1],
-                                                     work_phone=all_phones[2], phone2=all_phones[3]))
+                address = cells[3].text
+                all_email = cells[4].text
+                all_phones = cells[5].text
+                self.contact_cashe.append(NewContact(last_name=last_text, first_name=first_text, address1=address,
+                                                     all_phones_from_home_page=all_phones,
+                                                     all_email_from_home_page=all_email, id=id, ))
         return list(self.contact_cashe)
 
     def get_contact_info_from_edit_page(self, index):
@@ -160,12 +162,17 @@ class ContactHelper:
         firstname = browser.find_element(By.NAME, "firstname").get_attribute("value")
         lastname = browser.find_element(By.NAME, "lastname").get_attribute("value")
         homephone = browser.find_element(By.NAME, "home").get_attribute("value")
+        address = browser.find_element(By.NAME, "address").text
+        email1 = browser.find_element(By.NAME, "email").get_attribute("value")
+        email2 = browser.find_element(By.NAME, "email2").get_attribute("value")
+        email3 = browser.find_element(By.NAME, "email3").get_attribute("value")
         mobilephone = browser.find_element(By.NAME, "mobile").get_attribute("value")
         workphone = browser.find_element(By.NAME, "work").get_attribute("value")
         secondaryphone = browser.find_element(By.NAME, "phone2").get_attribute("value")
         id = browser.find_element(By.NAME, "id").get_attribute("value")
-        return NewContact(first_name=firstname, last_name=lastname, home_phone=homephone, mobile_phone=mobilephone,
-                          work_phone=workphone, phone2=secondaryphone, id=id)
+        return NewContact(first_name=firstname, last_name=lastname, address1=address, home_phone=homephone,
+                          email1=email1, email2=email2, email3=email3, mobile_phone=mobilephone, work_phone=workphone,
+                          phone2=secondaryphone, id=id)
 
     def get_contact_from_view_page(self, index):
         browser = self.app.browser
