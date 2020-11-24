@@ -1,3 +1,4 @@
+from model.contact import NewContact
 import re
 
 
