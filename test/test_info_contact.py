@@ -3,7 +3,7 @@ from random import randrange
 import re
 
 
-def test_phones_on_home_page(app):
+def test_checking_contact_information_on_home_page(app):
     if app.contact.count() == 0:
         app.contact.create_new_contact(NewContact(first_name="Victor", middle_name="Ivan", last_name="Petrov",
                                               nick_name="Fox140", tittle="test", company="testcompany", address1="Moscow",
