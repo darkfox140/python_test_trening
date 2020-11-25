@@ -4,18 +4,17 @@ import random
 import string
 
 
-def random_string(prefix, maxlen):
-    symbols = string.ascii_letters + string.digits + string.punctuation + " "*10
-    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
+def random_string(prefix, max_len):
+    symbols = string.ascii_letters + string.digits + " "*10
+    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(max_len))])
 
 
-testdate = [Group(name="", header="", footer="")] + [
+test_date = [Group(name="", header="", footer="")] + [
     Group(name=random_string("name", 10), header=random_string("header", 20), footer=random_string("footer", 20))
-    for i in range(5)
-]
+    for i in range(5)]
 
 
-@pytest.mark.parametrize("group", testdate, ids=[repr(x) for x in testdate])
+@pytest.mark.parametrize("group", test_date, ids=[repr(x) for x in test_date])
 def test_add_group(app, group):
     old_groups = app.group.get_group_list()
     app.group.create_group(group)
