@@ -36,8 +36,10 @@ class NewContact:
         self.all_email_from_home_page = all_email_from_home_page
 
     def __repr__(self):
-        return "%s:%s:%s:%s:%s:%s" % (self.id, self.last_name, self.first_name,
-                                      self.middle_name, self.company, self.address1)
+        return "%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s:%s" % \
+               (self.id, self.first_name, self.middle_name, self.last_name, self.nick_name, self.tittle, self.company,
+                self.address1, self.home_phone, self.mobile_phone, self.work_phone, self.fax, self.email1, self.email2,
+                self.email3, self.homepage, self.address2, self.phone2, self.notes)
 
     def __eq__(self, other):
         return (self.id is None or other.id is None or self.id == other.id) and self.first_name == other.first_name \
