@@ -1,6 +1,7 @@
 from model.contact import NewContact
 import pytest
 from data.add_new_contact import contact_date
+# from data.add_new_contact import constant as contact_date
 
 
 @pytest.mark.parametrize("contact", contact_date, ids=[repr(x) for x in contact_date])
