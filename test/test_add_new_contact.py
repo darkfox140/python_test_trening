@@ -1,11 +1,8 @@
 from model.contact import NewContact
-import pytest
-from data.add_new_contact import contact_date
-# from data.add_new_contact import constant as contact_date
 
 
-@pytest.mark.parametrize("contact", contact_date, ids=[repr(x) for x in contact_date])
-def test_add_new_contact(app, contact):
+def test_add_new_contact(app, data_contacts):
+    contact = data_contacts
     old_contact = app.contact.get_contact_list()
     app.contact.create_new_contact(contact)
     assert len(old_contact) + 1 == app.contact.count()
