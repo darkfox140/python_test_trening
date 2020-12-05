@@ -47,6 +47,14 @@ class GroupHelper:
         self.return_to_groups_page()
         self.group_cashe = None
 
+    def delete_group_by_id(self, id):
+        browser = self.app.browser
+        self.open_groups_page()
+        self.select_group_by_id(id)
+        browser.find_element(By.NAME, "delete").click()
+        self.return_to_groups_page()
+        self.group_cashe = None
+
     def modification_first_group(self):
         self.modification_group_by_index(0)
 
@@ -70,6 +78,10 @@ class GroupHelper:
     def select_group_by_index(self, index):
         browser = self.app.browser
         browser.find_elements(By.NAME, "selected[]")[index].click()
+
+    def select_group_by_id(self, id):
+        browser = self.app.browser
+        browser.find_element(By.CSS_SELECTOR, "input[value='%s']" % id).click()
 
     def return_to_groups_page(self):
         browser = self.app.browser
