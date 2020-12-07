@@ -117,9 +117,23 @@ class ContactHelper:
         self.open_home()
         self.contact_cashe = None
 
+    def delete_contact_by_id(self, id):
+        browser = self.app.browser
+        self.open_home()
+        self.select_contact_by_id(id)
+        browser.find_element(By.XPATH, "//input[@value='Delete']").click()
+        browser.switch_to_alert().accept()
+        browser.find_element(By.CSS_SELECTOR, "div.msgbox")
+        self.open_home()
+        self.contact_cashe = None
+
     def select_contact_by_index(self, index):
         browser = self.app.browser
         browser.find_elements(By.NAME, "selected[]")[index].click()
+
+    def select_contact_by_id(self, id):
+        browser = self.app.browser
+        browser.find_element(By.CSS_SELECTOR, "input[value='%s']" % id).click()
 
     def select_first_contact(self):
         browser = self.app.browser
