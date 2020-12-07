@@ -14,6 +14,8 @@ class ORMFixture:
         name = Optional(str, column='group_name')
         header = Optional(str, column='group_header')
         footer = Optional(str, column='group_footer')
+        contacts = Set(lambda: ORMFixture.ORMContact, table="address_in_groups", column="id", reverse="groups",
+                       lazy=True)
 
     class ORMContact(db.Entity):
         _table_ = 'addressbook'
@@ -36,6 +38,7 @@ class ORMFixture:
         address2 = Optional(str, column='address2')
         phone2 = Optional(str, column='phone2')
         notes = Optional(str, column='notes')
+        groups = Set(ORMFixture.ORMGroup, table="address_in_groups", column="group_id", reverse="contacts", lazy=True)
 
     def __init__(self, host, name, user, password):
         self.db.bind('mysql', host=host, database=name, user=user, password=password)
