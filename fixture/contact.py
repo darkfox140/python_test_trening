@@ -83,7 +83,7 @@ class ContactHelper:
         self.open_home()
         self.open_contact_to_edit_by_index(index)
         self.fill_contact_form(new_contact_form)
-        browser.find_element(By.XPATH, "//form[1]/input[22]").click()
+        self.button_update_click()
         self.open_home()
         self.contact_cashe = None
 
@@ -92,9 +92,13 @@ class ContactHelper:
         self.open_home()
         self.open_contact_to_edit_by_id(id)
         self.fill_contact_form(new_contact_form)
-        browser.find_element(By.XPATH, "//form[1]/input[22]").click()
+        self.button_update_click()
         self.open_home()
         self.contact_cashe = None
+
+    def button_update_click(self):
+        browser = self.app.browser
+        browser.find_element(By.XPATH, "//form[1]/input[22]").click()
 
     def open_contact_to_edit_by_index(self, index):
         browser = self.app.browser
@@ -106,8 +110,8 @@ class ContactHelper:
     def open_contact_to_edit_by_id(self, id):
         browser = self.app.browser
         self.open_home()
-        contact_elem = browser.find_element(By.CSS_SELECTOR, "input[value='%s']" % id)
-        cells = contact_elem.find_elements(By.TAG_NAME, "td")[7]
+        browser.find_element(By.CSS_SELECTOR, "input[value='%s']" % id)
+        cells = browser.find_elements(By.TAG_NAME, "td")[7]
         cells.find_element(By.TAG_NAME, "a").click()
 
     def open_contact_view_index(self, index):
@@ -124,17 +128,21 @@ class ContactHelper:
         browser = self.app.browser
         self.open_home()
         self.select_contact_by_index(index)
-        browser.find_element(By.XPATH, "//input[@value='Delete']").click()
+        self.button_delete_click()
         browser.switch_to_alert().accept()
         browser.find_element(By.CSS_SELECTOR, "div.msgbox")
         self.open_home()
         self.contact_cashe = None
 
+    def button_delete_click(self):
+        browser = self.app.browser
+        browser.find_element(By.XPATH, "//input[@value='Delete']").click()
+
     def delete_contact_by_id(self, id):
         browser = self.app.browser
         self.open_home()
         self.select_contact_by_id(id)
-        browser.find_element(By.XPATH, "//input[@value='Delete']").click()
+        self.button_delete_click()
         browser.switch_to_alert().accept()
         browser.find_element(By.CSS_SELECTOR, "div.msgbox")
         self.open_home()

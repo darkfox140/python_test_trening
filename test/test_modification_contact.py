@@ -24,7 +24,7 @@ import random
     assert sorted(old_contact, key=NewContact.id_or_max) == sorted(new_contact, key=NewContact.id_or_max)'''
 
 
-def test_modification_first_contact_address1(app, db):
+def test_modification_first_contact_address1(app, db, check_ui):
     if app.contact.count() == 0:
         app.contact.create_new_contact(NewContact(first_name="Victor", middle_name="Ivan", last_name="Petrov",
                                               nick_name="Fox140", tittle="test", company="testcompany", address1="Moscow",
@@ -39,6 +39,11 @@ def test_modification_first_contact_address1(app, db):
     mod_contact = NewContact(first_name="Petya", last_name="Petrov")
     app.contact.modification_contact_by_id(contact.id, mod_contact)
     assert len(old_contact) == app.contact.count()
+    new_contacts = db.get_contact_list()
+    assert len(old_contact) == len(new_contacts)
+    if check_ui:
+        assert sorted(old_contact, key=NewContact.id_or_max) == \
+               sorted(app.group.get_group_list(), key=NewContact.id_or_max)
 
 
 '''def test_modification_first_contact_birthday(app):
