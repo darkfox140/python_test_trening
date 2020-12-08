@@ -1,19 +1,19 @@
 from model.group import Group
-from random import randrange
+import random
 
 
-def test_modification_group_name(app):
+def test_modification_group_name(app, db, check_ui):
     if app.group.count() == 0:
         app.group.create_group(Group(name="test name"))
-    old_groups = app.group.get_group_list()
-    index = randrange(len(old_groups))
-    group = Group(name="Клуб")
-    group.id = old_groups[index].id
-    app.group.modification_group_by_index(index, group)
-    new_groups = app.group.get_group_list()
+    old_groups = db.get_group_list()
+    group = random.choice(old_groups)
+    mod_group = Group(name="Клуб")
+    app.group.modification_group_by_id(group.id, mod_group)
+    assert len(old_groups) == app.group.count()
+    new_groups = db.get_group_list()
     assert len(old_groups) == len(new_groups)
-    old_groups[index] = group
-    assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
+    if check_ui:
+        assert sorted(old_groups, key=Group.id_or_max) == sorted(app.group.get_group_list(), key=Group.id_or_max)
 
 
 '''def test_modification_group_header(app):
