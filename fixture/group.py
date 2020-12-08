@@ -71,6 +71,19 @@ class GroupHelper:
         self.return_to_groups_page()
         self.group_cashe = None
 
+    def modification_group_by_id(self, id,  new_group_date):
+        browser = self.app.browser
+        self.open_groups_page()
+        self.select_group_by_id(id)
+        # Open modification form
+        browser.find_element(By.XPATH, "//form/input[3]").click()
+        # fill group form
+        self.fill_group_form(new_group_date)
+        # Submit modification
+        browser.find_element(By.XPATH, "//form/input[3]").click()
+        self.return_to_groups_page()
+        self.group_cashe = None
+
     def select_first_group(self):
         browser = self.app.browser
         browser.find_element(By.NAME, "selected[]").click()
