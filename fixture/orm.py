@@ -1,5 +1,4 @@
 from pony.orm import *
-from datetime import datetime
 from model.group import Group
 from model.contact import NewContact
 
