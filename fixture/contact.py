@@ -87,10 +87,26 @@ class ContactHelper:
         self.open_home()
         self.contact_cashe = None
 
+    def modification_contact_by_id(self, id, new_contact_form):
+        browser = self.app.browser
+        self.open_home()
+        self.open_contact_to_edit_by_id(id)
+        self.fill_contact_form(new_contact_form)
+        browser.find_element(By.XPATH, "//form[1]/input[22]").click()
+        self.open_home()
+        self.contact_cashe = None
+
     def open_contact_to_edit_by_index(self, index):
         browser = self.app.browser
         self.open_home()
         contact_elem = browser.find_elements(By.NAME, "entry")[index]
+        cells = contact_elem.find_elements(By.TAG_NAME, "td")[7]
+        cells.find_element(By.TAG_NAME, "a").click()
+
+    def open_contact_to_edit_by_id(self, id):
+        browser = self.app.browser
+        self.open_home()
+        contact_elem = browser.find_element(By.CSS_SELECTOR, "input[value='%s']" % id)
         cells = contact_elem.find_elements(By.TAG_NAME, "td")[7]
         cells.find_element(By.TAG_NAME, "a").click()
 
@@ -156,7 +172,7 @@ class ContactHelper:
             self.contact_cashe = []
             for elements in browser.find_elements(By.NAME, "entry"):
                 cells = elements.find_elements(By.TAG_NAME, "td") # Данная точка найтёт текст
-                id = elements.find_element(By.NAME, "selected[]").get_attribute("value")
+                id = cells[0].find_element(By.TAG_NAME, "input").get_attribute("value")
                 last_text = cells[1].text
                 first_text = cells[2].text
                 address = cells[3].text
