@@ -14,12 +14,3 @@ def test_modification_group_name(app, db, check_ui):
     assert len(old_groups) == len(new_groups)
     if check_ui:
         assert sorted(old_groups, key=Group.id_or_max) == sorted(app.group.get_group_list(), key=Group.id_or_max)
-
-
-'''def test_modification_group_header(app):
-    if app.group.count() == 0:
-        app.group.create_group(Group(header="test header"))
-    old_groups = app.group.get_group_list()
-    app.group.modification_first_group(Group(header="Участники"))
-    new_groups = app.group.get_group_list()
-    assert len(old_groups) == len(new_groups)'''
