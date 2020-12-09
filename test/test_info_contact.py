@@ -1,9 +1,14 @@
 from model.contact import NewContact
-from random import randrange
 import re
 
 
-def test_checking_contact_information_on_home_page(app):
+def test_checking_contact_information_on_home_page(app, db):
+    ui_list = app.contact.get_contact_list()
+    db_list = db.get_contact_list()
+    assert sorted(ui_list, key=NewContact.id_or_max) == sorted(db_list, key=NewContact.id_or_max)
+
+
+'''def test_checking_contact_information_on_home_page(app):
     if app.contact.count() == 0:
         app.contact.create_new_contact(NewContact(first_name="Victor", middle_name="Ivan", last_name="Petrov",
                                               nick_name="Fox140", tittle="test", company="testcompany", address1="Moscow",
@@ -39,4 +44,4 @@ def merge_email_like_on_home_page(contact):
     return "\n".join(filter(lambda x: x != "",
                             map(lambda x: clear(x),
                                 filter(lambda x: x is not None,
-                                       [contact.email1, contact.email2, contact.email3]))))
+                                       [contact.email1, contact.email2, contact.email3]))))'''
