@@ -10,7 +10,6 @@ Scenario Outline: Add new group
   | name2 | header2 | footer2 |
 
 
-
 Scenario Outline: Delete a gruop
   Given a non empty group list
   Given a random group from the list

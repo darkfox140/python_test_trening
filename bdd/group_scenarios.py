@@ -8,5 +8,5 @@ def test_add_new_group():
 
 
 @scenario('groups.feature', 'Delete a gruop')
-def test_dlete_group():
+def test_delete_group():
     pass
